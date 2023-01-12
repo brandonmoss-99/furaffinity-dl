@@ -6,4 +6,4 @@ COPY ./furaffinity-dl .
 # Copy in a cookies file, if it exists (like cookies.txt)
 COPY ./cookies.* .
 
-ENTRYPOINT [ "./furaffinity-dl" ]
+ENTRYPOINT [ "/bin/bash", "./furaffinity-dl" ]
