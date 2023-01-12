@@ -6,4 +6,6 @@ COPY ./furaffinity-dl .
 # Copy in a cookies file, if it exists (like cookies.txt)
 COPY ./cookies.* .
 
-ENTRYPOINT [ "/bin/bash", "./furaffinity-dl" ]
+RUN apt-get update
+RUN apt-get install -y wget exiftool file
+ENTRYPOINT [ "/bin/bash", "/furaffinity-dl/furaffinity-dl" ]
