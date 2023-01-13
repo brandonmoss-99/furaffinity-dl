@@ -1,11 +1,11 @@
-FROM debian:11.6-slim
+FROM alpine:3.17.1
 
-WORKDIR /furaffinity-dl
-COPY ./furaffinity-dl .
+# Install packages needed
+RUN apk add --no-cache bash wget exiftool file grep tini
 
+# Move over needed files
+COPY furaffinity-dl /usr/bin/.
 # Copy in a cookies file, if it exists (like cookies.txt)
-COPY ./cookies.* .
+COPY cookies.* /usr/bin/.
 
-RUN apt-get update
-RUN apt-get install -y wget exiftool file
-ENTRYPOINT [ "/bin/bash", "/furaffinity-dl/furaffinity-dl" ]
+ENTRYPOINT [ "/sbin/tini", "--", "/bin/bash", "/usr/bin/furaffinity-dl" ]
